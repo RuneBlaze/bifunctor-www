@@ -11,14 +11,14 @@ Without much experience and background, I aim to avoid unwieldy analogies {%side
 
 ## Starting with Functors
 
-Haskell functors, intuitively understood as mathematical covariant functors, usually acts as the starting point towards the typeclass hierachy. While often leading to applicatives and monads, the somewhat "container-like" route, functors this time starts a different path with ```Contravariant```, intuitively mathematical contravariant functors.
+Haskell functors, intuitively understood as mathematical covariant functors, usually act as the starting point towards the typeclass hierachy. While often leading to applicatives and monads, the somewhat "container-like" route, functors this time start a different path with ```Contravariant```, intuitively mathematical contravariant functors.
 
 ```haskell
 class Contravariant f where
 	contramap :: (b -> a) -> f a -> f b
 ```
 
-As with ```fmap``` of functors, parametricity dictates the uniqueness of ```contramap``` for a given ADT. Intuitively, contravariant functors, different from functors, do not contain or produce value, but merely consume value, as seen in instances as wrappers of ```a -> Bool``` and ```a -> b```. The chemistry between covariant and contravariant functors might prove intriguing: covariant functors that are also contravariant, bivariant functors, are limited to phantoms containing no value, as evidenced by the ```coerce``` function{%sidenote 'sn-coerce' 'For an implementation and a more general context see [lens over tea #2](https://artyom.me/lens-over-tea-2).'%}:
+As with ```fmap``` of functors, parametricity{% marginnote 'mn-id-parametricity' 'Also known as [free theorems](http://ttic.uchicago.edu/~dreyer/course/papers/wadler.pdf).' %} dictates the uniqueness of ```contramap``` for a given ADT. Intuitively, contravariant functors, different from functors, do not contain or produce value, but merely consume value, as seen in instances as wrappers of ```a -> Bool``` and ```a -> b```. The chemistry between covariant and contravariant functors might prove intriguing: covariant functors that are also contravariant, bivariant functors, are limited to phantoms containing no value, as evidenced by the ```coerce``` function{%sidenote 'sn-coerce' 'For an implementation and a more general context see [lens over tea #2](https://artyom.me/lens-over-tea-2).'%}:
 
 ```haskell
 coerce :: (Functor f, Contravariant f) => f a -> f b

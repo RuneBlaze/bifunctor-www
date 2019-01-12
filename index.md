@@ -18,7 +18,7 @@ class Contravariant f where
 	contramap :: (b -> a) -> f a -> f b
 ```
 
-As with ```fmap``` of functors, parametricity dictates the uniqueness of ```contramap``` for a given ADT. Intuitively, contravariant functors, different from functors, does not contain or produce value, but merely consumes value, as seen in instances as wrappers of ```a -> Bool``` and ```a -> b```. The chemistry between covariant and contravariant functors might prove intriguing: covariant functors that are also contravariant, bivariant functors, are limited to phantoms containing no value, as evidenced by the ```coerce``` function{%sidenote 'sn-coerce' 'For an implementation and a more general context see [lens over tea #2](https://artyom.me/lens-over-tea-2).'%}:
+As with ```fmap``` of functors, parametricity dictates the uniqueness of ```contramap``` for a given ADT. Intuitively, contravariant functors, different from functors, do not contain or produce value, but merely consume value, as seen in instances as wrappers of ```a -> Bool``` and ```a -> b```. The chemistry between covariant and contravariant functors might prove intriguing: covariant functors that are also contravariant, bivariant functors, are limited to phantoms containing no value, as evidenced by the ```coerce``` function{%sidenote 'sn-coerce' 'For an implementation and a more general context see [lens over tea #2](https://artyom.me/lens-over-tea-2).'%}:
 
 ```haskell
 coerce :: (Functor f, Contravariant f) => f a -> f b
@@ -44,7 +44,7 @@ Prelude> (+1) <$> (1,2)
 (1,3)
 ```
 
-The sum type ```Either``` also displays similar behavior with regard to its functor instance, with ```Left``` values unaffected and ```Right``` values changed. Naturally the question of whether a functor instance can be defined with regarding to the first type argument (the type of the first element in tuples, and the type of the left element in sum types) arises, only achievable after introducing type wrappers. Also if the first type argument is functorial, can both functorial arguments be operated on at once? In our context, this motivates a function that can update both values of a tuple at once, and a function that upon meeting a sum type can either operate on the right or the left.
+The sum type ```Either``` also displays similar behavior with regards to its functor instance, with ```Left``` values unaffected and ```Right``` values changed. Naturally the question of whether a functor instance can be defined with regarding to the first type argument (the type of the first element in tuples, and the type of the left element in sum types) arises, only achievable after introducing type wrappers. Also if the first type argument is functorial, can both functorial arguments be operated on at once? In our context, this motivates a function that can update both values of a tuple at once, and a function that upon meeting a sum type can either operate on the right or the left.
 
 ```haskell
 mapTuple :: (a -> x) -> (b -> y) -> (a, b) -> (x, y)

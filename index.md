@@ -11,7 +11,9 @@ Without much experience and background, I aim to avoid unwieldy analogies {%side
 
 ## Starting with Functors
 
-Haskell functors, intuitively understood as mathematical covariant functors, usually act as the starting point towards the typeclass hierachy. While often leading to applicatives and monads, the somewhat "container-like" route, functors this time start a different path with ```Contravariant```, intuitively mathematical contravariant functors.
+{%marginnote 'sn-variance' 'See [Covariance, contravariance, and positive and negative position](https://www.schoolofhaskell.com/user/commercial/content/covariance-contravariance) for a more comprehensive treatment on the topic of this section.'%}
+
+Haskell functors, intuitively understood as mathematical covariant functors, usually act as the starting point towards the [typeclass hierachy](https://wiki.haskell.org/Typeclassopedia). While often leading to applicatives and monads, the somewhat "container-like" route, functors this time start a different path with ```Contravariant```, intuitively mathematical contravariant functors.
 
 ```haskell
 class Contravariant f where
@@ -31,7 +33,7 @@ class Invariant f where
 	invmap :: (a -> b) -> (b -> a) -> f a -> f b
 ```
 
-Even though ideally we would have ```class Invariant f => Functor f ```, in practicality few uses exists for invariant functors to justify that choice.{%sidenote 'sn-variance' 'See [Covariance, contravariance, and positive and negative position](https://www.schoolofhaskell.com/user/commercial/content/covariance-contravariance) for a more comprehensive treatment on this topic.'%}
+Even though ideally we would have ```class Invariant f => Functor f ```, in practicality few uses exists for invariant functors to justify that choice.
 
 ## Towards Bifunctors
 
@@ -44,7 +46,7 @@ Prelude> (+1) <$> (1,2)
 (1,3)
 ```
 
-The sum type ```Either``` also displays similar behavior with regards to its functor instance, with ```Left``` values unaffected and ```Right``` values changed. Naturally the question of whether a functor instance can be defined with regarding to the first type argument (the type of the first element in tuples, and the type of the left element in sum types) arises, only achievable after introducing type wrappers. Also if the first type argument is functorial, can both functorial arguments be operated on at once? In our context, this motivates a function that can update both values of a tuple at once, and a function that upon meeting a sum type can either operate on the right or the left.
+The sum type ```Either``` also displays similar behavior with regards to its functor instance, with ```Left``` values unaffected and ```Right``` values changed. Naturally the question of whether a functor instance can be defined with regarding to the first type argument (the type of the first element in tuples, and the type of the left element in sum types) arises, only achievable after introducing wrapper types{%sidenote 'sn-type-wrapper' 'Attributed to the lack of type-level lambdas.'%}. The power to apply functions on both positions might also become helpful. In our context of tuples and `Either`, this motivates a function that can update both values of a tuple at once, and a function that upon meeting a sum type can either operate on the right or the left.
 
 ```haskell
 mapTuple :: (a -> x) -> (b -> y) -> (a, b) -> (x, y)
@@ -138,7 +140,7 @@ type One = K ()
 type Two = S One One
 ```
 
-To rescind into reality, the two inhabitants of ```Two x```, with ```x``` fixed, can be constructed.
+To retreat into reality, the two inhabitants of ```Two x```, with ```x``` fixed, can be constructed.
 
 ```haskell
 t :: Two x

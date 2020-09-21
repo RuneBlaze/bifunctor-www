@@ -36,13 +36,40 @@ code of this wrapper can be found at TODO.
 The dataset has been preprocessed. The numbers in the replication
 directory names are padded to have length 2, e.g. `R6` to `R06`. The
 input files are chosen to be either `rose.aln.true.fasta` or
-`rose.aln.true.phy`, created from the `BioPy` package.
+`rose.aln.true.phy`, converted from the FASTA files using the `BioPy` package.
 
 When doing tree comparison, the reference trees are chosen to be the
 `rose.tt` trees, while the comparison trees are chosen to be
-the program outputs.
+the program outputs. The tree comparison code (along with
+the error metric calculation code) was provided by
+Vlad and written by Erin Molloy with slight modifications made by me. Note that the `rose.tt` trees
+are not necessarily binary.
+
+MPBoot did not succeed in running 3 of the 1000M1 datasets (I also made
+the mistake of not tracking the logs, so I do not know why it failed). These
+3 data points are simply discarded and not included in the analysis.
 
 # Results
+
+## FP Rate Visualization
+
+### 1000M1
+
+~ TexRaw
+\begin{tabular}{cc}
+A & B\\
+x & M\\
+y & F\\
+z & F\\
+\end{tabular}
+~
+
+
+### 1000M4
+
+## FN Rate Visualization
+
+## RF Rate Visualization
 
 # Discussion
 

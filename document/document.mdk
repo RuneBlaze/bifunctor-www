@@ -1,0 +1,28 @@
+Title         : HW3
+Author        : Baqiao Liu
+Logo          : False
+
+[TITLE]
+
+# Summary
+
+I used several methods (BalME, FastTree2, IQTree, MPBoot, NJ, UPGMA) on the 1000M1 and 1000M4 dataset
+to reconstruct phylogenetic trees. I made the mistake of not using
+gamma correction on any of the models, and I do not know how much
+this has affected the accuracy of several methods. Under no
+gama correction and the FP, FN metrics,
+FastTree2 performed surprisingly well with IQTree performing second.
+
+
+# Methodology
+
+The methods, software (along with version), and command are summarized
+in the following table.
+
+# Results
+
+# Discussion
+
+# Raw Data
+
+[reference manual]: http://research.microsoft.com/en-us/um/people/daan/madoko/doc/reference.html  "Madoko reference manual"

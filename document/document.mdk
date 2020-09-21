@@ -10,14 +10,37 @@ I used several methods (BalME, FastTree2, IQTree, MPBoot, NJ, UPGMA) on the 1000
 to reconstruct phylogenetic trees. I made the mistake of not using
 gamma correction on any of the models, and I do not know how much
 this has affected the accuracy of several methods. Under no
-gama correction and the FP, FN metrics,
-FastTree2 performed surprisingly well with IQTree performing second.
+gamma correction and the usual FP, FN metrics,
+FastTree2 performed surprisingly well while the simple distance methods
+(UPGMA, NJ) performed the worst. The details are explored in
+the next several sections.
 
 
 # Methodology
 
-The methods, software (along with version), and command are summarized
-in the following table.
+The methods, software, and commands used are outlined in the following
+table:
+
+|--------------|--------------|--------------|
+| Method       | Software     | Command    |
++--------------|:------------:+--------------+
+| Cell 1       | Cell 2       | Cell 3       |
+| Cell 1       | Cell 2       | Cell 3       |
+|--------------|--------------|--------------|
+{  }
+
+The above software are installed and run on my personal macbook pro
+and four Azure Ubuntu machines under a Julia wrapper. The source
+code of this wrapper can be found at TODO.
+
+The dataset has been preprocessed. The numbers in the replication
+directory names are padded to have length 2, e.g. `R6` to `R06`. The
+input files are chosen to be either `rose.aln.true.fasta` or
+`rose.aln.true.phy`, created from the `BioPy` package.
+
+When doing tree comparison, the reference trees are chosen to be the
+`rose.tt` trees, while the comparison trees are chosen to be
+the program outputs.
 
 # Results
 

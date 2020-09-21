@@ -12,7 +12,7 @@ this has affected the accuracy of several methods. Under no
 gamma correction and the usual FP, FN metrics,
 FastTree2 performed surprisingly well while the simple distance methods
 (UPGMA, NJ) performed the worst. The details are explored in
-the next several sections.
+the next several sections along with figures and setup.
 
 
 # Methodology
@@ -23,14 +23,30 @@ table:
 |-----------------------------------|-----------------|
 | Method                            | Software        |
 +-----------------------------------|:---------------:+
-| Neighbor Joining (JC, p Distance) | FastME 2.1.6    |
+| Neighbor Joining (JC, p-distance) | FastME 2.1.6    |
 | UPGMA                             | MEGA 10.1.8     |
-| BalME  (JC, p Distance)           | FastME 2.1.6    |
+| BalME  (JC, p-distance)           | FastME 2.1.6    |
 | FastTree2                         | FastTree 2.1.11 |
 | IQTree                            | IQTree 1.6.12   |
 | Maximum Parsimony                 | MPBoot 1.1.0    |
 |-----------------------------------|-----------------|
 {  }
+
+|-----------------------------------|-----------------------------------|
+| Method                            | Command                           |
++-----------------------------------|:---------------------------------:+
+| Neighbor Joining (JC, p-distance) | `fastme --dna={J,P} -m N -i $phy` |
+| UPGMA                             | `megacc UPGMA.mao -d $fasta`      |
+| BalME  (JC, p-distance)           | `fastme --dna={J,P} -m B -i $phy` |
+| FastTree2                         | `FastTree [-gtr] -nt < $phy`      |
+| IQTree                            | `iqtree -s $phy -m {GTR, JC}`     |
+| Maximum Parsimony                 | `mpboot -s $phy`                  |
+|-----------------------------------|-----------------------------------|
+
+`$phy` is the path to the PHYLIP format input file, and `$fasta` is the
+path to the FASTA format input file. `UPGMA.mao` is the config file
+for MEGA and is linked [here](https://gist.github.com/RuneBlaze/d34894119c9dc1c263e4393d72687195).
+
 
 The above software are installed and run on my personal macbook pro
 and four Azure Ubuntu machines under a Julia wrapper. The source
@@ -48,17 +64,29 @@ the error metric calculation code) was provided by
 Vlad and written by Erin Molloy with slight modifications made by me. Note that the `rose.tt` trees
 are not necessarily binary.
 
-MPBoot did not succeed in running 3 of the 1000M1 datasets (I also made
+MPBoot did not succeed in running three replicates of the 1000M1 datasets (I also made
 the mistake of not tracking the logs, so I do not know why it failed). These
-3 data points are simply discarded and not included in the analysis.
+three data points are simply discarded and not included in the analysis.
 
 # Results
+
+I present here the mean FP, FN, RF rates of the methods across the two datasets on
+all the replicates. Most of the method labels should be relatively self evident.
+Some require more explanation: `BME(JC)` is BalME with the JC64 model; `FastTree2(JCM)`
+is FastTree2 on the JC model (due to some design mishaps, some of the JC models
+are written as `JCM` instead of `JC`); `PDis` is p distance; as a reminder, `MPBoot` is a maximum
+parsimony method, and all models are run without gamma correction.
+
+Each rate is visualized with both the table of mean error rates
+among the methods, and also a boxplot of the error rates among different
+methods on all (except MPBoot, which failed on 3 replicates in the 1000M1 dataset,
+and these data points were discarded) the replicates of a dataset.
 
 ## FP Rate Visualization
 
 ### 1000M1
 
-|       variable |  mean |
+|       method |  mean |
 | --------------:| -----:|
 |        BME(JC) | 0.224 |
 |      BME(PDis) | 0.229 |
@@ -75,26 +103,26 @@ the mistake of not tracking the logs, so I do not know why it failed). These
 
 ![plot_3_M1]
 
-[plot_3_M1]: images/plot_3_M1.png "plot_3_M1" { width:auto; max-width:90% }
+[plot_3_M1]: images/plot_3_M1.png "plot_3_M1" { width:auto; max-width:100% }
 
-[plot_3_M1]: images/plot_3_M1.png "plot_3_M1" { width:auto; max-width:90% }
+[plot_3_M1]: images/plot_3_M1.png "plot_3_M1" { width:auto; max-width:100% }
 
-[plot_3_M4]: images/plot_3_M4.png "plot_3_M4" { width:auto; max-width:90% }
+[plot_3_M4]: images/plot_3_M4.png "plot_3_M4" { width:auto; max-width:100% }
 
-[plot_4_M1]: images/plot_4_M1.png "plot_4_M1" { width:auto; max-width:90% }
+[plot_4_M1]: images/plot_4_M1.png "plot_4_M1" { width:auto; max-width:100% }
 
-[plot_4_M4]: images/plot_4_M4.png "plot_4_M4" { width:auto; max-width:90% }
+[plot_4_M4]: images/plot_4_M4.png "plot_4_M4" { width:auto; max-width:100% }
 
-[plot_5_M1]: images/plot_5_M1.png "plot_5_M1" { width:auto; max-width:90% }
+[plot_5_M1]: images/plot_5_M1.png "plot_5_M1" { width:auto; max-width:100% }
 
-[plot_5_M4]: images/plot_5_M4.png "plot_5_M4" { width:auto; max-width:90% }
+[plot_5_M4]: images/plot_5_M4.png "plot_5_M4" { width:auto; max-width:100% }
 
 
 
 ### 1000M4
 
 
-|       variable |   mean |
+|       method |   mean |
 | --------------:| ------:|
 |        BME(JC) |  0.139 |
 |      BME(PDis) |  0.159 |
@@ -113,7 +141,7 @@ the mistake of not tracking the logs, so I do not know why it failed). These
 
 ### 1000M1
 
-| variable       | mean  |
+| method       | mean  |
 | --------------:| -----:|
 | BME(JC)        | 0.223 |
 | BME(PDis)      | 0.228 |
@@ -131,7 +159,7 @@ the mistake of not tracking the logs, so I do not know why it failed). These
 
 ### 1000M4
 
-|       variable |   mean |
+|       method |   mean |
 | --------------:| ------:|
 |        BME(JC) |  0.135 |
 |      BME(PDis) |  0.155 |
@@ -151,7 +179,7 @@ the mistake of not tracking the logs, so I do not know why it failed). These
 
 ### 1000M1
 
-| variable       | mean  |
+| method       | mean  |
 | --------------:| -----:|
 | BME(JC)        | 0.221 |
 | BME(PDis)      | 0.226 |
@@ -169,7 +197,7 @@ the mistake of not tracking the logs, so I do not know why it failed). These
 
 ### 1000M4
 
-|       variable |   mean |
+|       method |   mean |
 | --------------:| ------:|
 |        BME(JC) |  0.125 |
 |      BME(PDis) |  0.145 |
@@ -186,7 +214,41 @@ the mistake of not tracking the logs, so I do not know why it failed). These
 
 # Discussion
 
+I am having doubts about my results because I did not apply gamma correction,
+and also I am very surprised by the performance of FastTree2 when simply
+looking across all the error rates (I am having severe doubts on whether I
+had run FastTree correctly, but I have run out of time to check beyond one
+replicate) especially given the fact that the fast running FastTree outdid
+the very slow running IQTree. With that said, the error rates of IQTree
+matched my expectations: it is generally the second best method. It is not out of expectation at all to see GTR
+performing better than JC69, but I did not expect GTR to defeat JC69 by
+only a small margin. The JC69 distance performed better than the p distance
+by a more significant margin compared to GTR defeating JC69, which might suggest
+taht I should always try JC69 first in the future when doing analysis.
 
+The fact that UPGMA and NJ did not do quite well (compared to more sophisticated
+methods) was very much expected. Looking at the figures, I can generally
+split the methods into two clusters: FastTree and IQTree consistently defeats
+BalME, NJ and UPGMA. The story for MPBoot is more complicated: in 1000M4 its
+accuracy is closer to IQTree, while in 1000M1 it is worse than NJ using JC64
+on all metrics. I actually do not know how to interpret this: perhaps
+maximum parsimony works quite well on some datasets?
+
+## What I Learned
+
+If I had done everything reasonably correct, this shows that the slowest
+method might not perform the best these kinds of moderately sized (if I am correct
+in saying that N=1000 is moderately sized) datasets, and fast methods can
+do surprisingly well! (Not to mention the fact that I deployed four Azure
+machines specifically for IQTree while everything else was run on my laptop.)
+
+Also one very obvious fact that I learned is that the method can be
+very much dataset dependent: MPBoot does quite a bit better on 1000M4 compared
+to 1000M1 on the error metrics. 
+
+My experiment setup was quite messy, and if I can draw one conclusion, that
+conclusion would be that I should parallelize my jobs and learn more about
+parallelization setups.
 
 # Raw Data
 

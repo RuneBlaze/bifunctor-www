@@ -1,6 +1,7 @@
 Title         : HW3
 Author        : Baqiao Liu
 Logo          : False
+Bibliography: hw3.bib
 
 [TITLE]
 # Summary
@@ -23,12 +24,12 @@ table:
 |-----------------------------------|-----------------|
 | Method                            | Software        |
 +-----------------------------------|:---------------:+
-| Neighbor Joining (JC, p-distance) | FastME 2.1.6    |
-| UPGMA                             | MEGA 10.1.8     |
-| BalME  (JC, p-distance)           | FastME 2.1.6    |
-| FastTree2                         | FastTree 2.1.11 |
-| IQTree                            | IQTree 1.6.12   |
-| Maximum Parsimony                 | MPBoot 1.1.0    |
+| Neighbor Joining (JC, p-distance) | FastME 2.1.6 [@lefort_fastme_2015]    |
+| UPGMA                             | MEGA 10.1.8 [@tamura_mega6_2013]    |
+| BalME  (JC, p-distance)           | FastME 2.1.6   |
+| FastTree2                         | FastTree 2.1.11 [@noauthor_fasttree_nodate] |
+| IQTree                            | IQTree 1.6.12 [@noauthor_iq-tree_nodate]   |
+| Maximum Parsimony                 | MPBoot 1.1.0 [@hoang_mpboot_2018]   |
 |-----------------------------------|-----------------|
 {  }
 
@@ -50,7 +51,7 @@ for MEGA and is linked [here](https://gist.github.com/RuneBlaze/d34894119c9dc1c2
 
 The above software are installed and run on my personal macbook pro
 and four Azure Ubuntu machines under a Julia wrapper. The source
-code of this wrapper can be found at TODO.
+code of this wrapper can be found [here](https://github.com/RuneBlaze/cs581-hw3).
 
 The dataset has been preprocessed. The numbers in the replication
 directory names are padded to have length 2, e.g. `R6` to `R06`. The
@@ -75,7 +76,7 @@ all the replicates. Most of the method labels should be relatively self evident.
 Some require more explanation: `BME(JC)` is BalME with the JC64 model; `FastTree2(JCM)`
 is FastTree2 on the JC model (due to some design mishaps, some of the JC models
 are written as `JCM` instead of `JC`); `PDis` is p distance; as a reminder, `MPBoot` is a maximum
-parsimony method, and all models are run without gamma correction.
+parsimony method, and all models were run without gamma correction.
 
 Each rate is visualized with both the table of mean error rates
 among the methods, and also a boxplot of the error rates among different
@@ -85,6 +86,9 @@ and these data points were discarded) the replicates of a dataset.
 ## FP Rate Visualization
 
 ### 1000M1
+
+The table below shoes the mean (across all replicates) FP Rate of different methods
+on the 1000M1 dataset. 
 
 |       method |  mean |
 | --------------:| -----:|
@@ -99,7 +103,9 @@ and these data points were discarded) the replicates of a dataset.
 |       NJ(PDis) | 0.233 |
 |    UPGMA(PDis) |  0.25 |
 
-
+The following box plot, instead of the mean, plots the distribution. All
+other tables and figures follow this pattern (with different
+error metrics and different datasets).
 
 ![plot_3_M1]
 
@@ -234,6 +240,9 @@ accuracy is closer to IQTree, while in 1000M1 it is worse than NJ using JC64
 on all metrics. I actually do not know how to interpret this: perhaps
 maximum parsimony works quite well on some datasets?
 
+The FP and FN rates also largely agree. This might be due to `rose.tt`
+containing trees that are almost binary.
+
 ## What I Learned
 
 If I had done everything reasonably correct, this shows that the slowest
@@ -251,5 +260,11 @@ conclusion would be that I should parallelize my jobs and learn more about
 parallelization setups.
 
 # Raw Data
+
+The raw data (of all the outputs) can be accessed [here](https://gist.github.com/RuneBlaze/f2ca715f6d2e52eb87c842135c1a9b3c).
+The data analysis pipeline can be found in the [Data Analysis](https://github.com/RuneBlaze/cs581-hw3/blob/master/Data%20Analysis.ipynb) notebook.
+
+[BIB]
+
 
 [reference manual]: http://research.microsoft.com/en-us/um/people/daan/madoko/doc/reference.html  "Madoko reference manual"

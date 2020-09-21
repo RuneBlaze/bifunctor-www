@@ -3,7 +3,6 @@ Author        : Baqiao Liu
 Logo          : False
 
 [TITLE]
-
 # Summary
 
 I used several methods (BalME, FastTree2, IQTree, MPBoot, NJ, UPGMA) on the 1000M1 and 1000M4 dataset
@@ -21,12 +20,16 @@ the next several sections.
 The methods, software, and commands used are outlined in the following
 table:
 
-|--------------|--------------|--------------|
-| Method       | Software     | Command    |
-+--------------|:------------:+--------------+
-| Cell 1       | Cell 2       | Cell 3       |
-| Cell 1       | Cell 2       | Cell 3       |
-|--------------|--------------|--------------|
+|-----------------------------------|-----------------|
+| Method                            | Software        |
++-----------------------------------|:---------------:+
+| Neighbor Joining (JC, p Distance) | FastME 2.1.6    |
+| UPGMA                             | MEGA 10.1.8     |
+| BalME  (JC, p Distance)           | FastME 2.1.6    |
+| FastTree2                         | FastTree 2.1.11 |
+| IQTree                            | IQTree 1.6.12   |
+| Maximum Parsimony                 | MPBoot 1.1.0    |
+|-----------------------------------|-----------------|
 {  }
 
 The above software are installed and run on my personal macbook pro
@@ -55,23 +58,135 @@ the mistake of not tracking the logs, so I do not know why it failed). These
 
 ### 1000M1
 
-~ TexRaw
-\begin{tabular}{cc}
-A & B\\
-x & M\\
-y & F\\
-z & F\\
-\end{tabular}
-~
+|       variable |  mean |
+| --------------:| -----:|
+|        BME(JC) | 0.224 |
+|      BME(PDis) | 0.229 |
+| FastTree2(GTR) | 0.107 |
+| FastTree2(JCM) | 0.125 |
+|    IQTree(GTR) | 0.147 |
+|    IQTree(JCM) | 0.164 |
+|       MPBoot() | 0.224 |
+|         NJ(JC) | 0.213 |
+|       NJ(PDis) | 0.233 |
+|    UPGMA(PDis) |  0.25 |
+
+
+
+![plot_3_M1]
+
+[plot_3_M1]: images/plot_3_M1.png "plot_3_M1" { width:auto; max-width:90% }
+
+[plot_3_M1]: images/plot_3_M1.png "plot_3_M1" { width:auto; max-width:90% }
+
+[plot_3_M4]: images/plot_3_M4.png "plot_3_M4" { width:auto; max-width:90% }
+
+[plot_4_M1]: images/plot_4_M1.png "plot_4_M1" { width:auto; max-width:90% }
+
+[plot_4_M4]: images/plot_4_M4.png "plot_4_M4" { width:auto; max-width:90% }
+
+[plot_5_M1]: images/plot_5_M1.png "plot_5_M1" { width:auto; max-width:90% }
+
+[plot_5_M4]: images/plot_5_M4.png "plot_5_M4" { width:auto; max-width:90% }
+
 
 
 ### 1000M4
 
+
+|       variable |   mean |
+| --------------:| ------:|
+|        BME(JC) |  0.139 |
+|      BME(PDis) |  0.159 |
+| FastTree2(GTR) | 0.0772 |
+| FastTree2(JCM) | 0.0826 |
+|    IQTree(GTR) | 0.0819 |
+|    IQTree(JCM) | 0.0903 |
+|       MPBoot() |  0.116 |
+|         NJ(JC) |  0.163 |
+|       NJ(PDis) |  0.196 |
+|    UPGMA(PDis) |  0.256 |
+
+![plot_3_M4]
+
 ## FN Rate Visualization
+
+### 1000M1
+
+| variable       | mean  |
+| --------------:| -----:|
+| BME(JC)        | 0.223 |
+| BME(PDis)      | 0.228 |
+| FastTree2(GTR) | 0.107 |
+| FastTree2(JCM) | 0.125 |
+| IQTree(GTR)    | 0.146 |
+| IQTree(JCM)    | 0.163 |
+| MPBoot()       | 0.224 |
+| NJ(JC)         | 0.212 |
+| NJ(PDis)       | 0.232 |
+| UPGMA(PDis)    | 0.249 |
+
+![plot_4_M1]
+
+
+### 1000M4
+
+|       variable |   mean |
+| --------------:| ------:|
+|        BME(JC) |  0.135 |
+|      BME(PDis) |  0.155 |
+| FastTree2(GTR) | 0.0753 |
+| FastTree2(JCM) | 0.0806 |
+|    IQTree(GTR) | 0.0799 |
+|    IQTree(JCM) | 0.0881 |
+|       MPBoot() |  0.113 |
+|         NJ(JC) |  0.159 |
+|       NJ(PDis) |  0.191 |
+|    UPGMA(PDis) |   0.25 |
+
+
+![plot_4_M4]
 
 ## RF Rate Visualization
 
+### 1000M1
+
+| variable       | mean  |
+| --------------:| -----:|
+| BME(JC)        | 0.221 |
+| BME(PDis)      | 0.226 |
+| FastTree2(GTR) | 0.105 |
+| FastTree2(JCM) | 0.123 |
+| IQTree(GTR)    | 0.145 |
+| IQTree(JCM)    | 0.162 |
+| MPBoot()       | 0.222 |
+| NJ(JC)         | 0.21  |
+| NJ(PDis)       | 0.23  |
+| UPGMA(PDis)    | 0.248 |
+
+![plot_5_M1]
+
+
+### 1000M4
+
+|       variable |   mean |
+| --------------:| ------:|
+|        BME(JC) |  0.125 |
+|      BME(PDis) |  0.145 |
+| FastTree2(GTR) | 0.0641 |
+| FastTree2(JCM) | 0.0695 |
+|    IQTree(GTR) | 0.0688 |
+|    IQTree(JCM) | 0.0771 |
+|       MPBoot() |  0.102 |
+|         NJ(JC) |  0.149 |
+|       NJ(PDis) |  0.181 |
+|    UPGMA(PDis) |  0.241 |
+
+![plot_5_M4]
+
 # Discussion
+
+
 
 # Raw Data
 
